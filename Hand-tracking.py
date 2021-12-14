@@ -51,7 +51,35 @@ while True:
             cv2.circle(img, (int(Index_x),int(Index_y)), 5, (255, 0, 0), thickness=3, lineType=8,shift=0)
             cv2.circle(img, (int(Middle_x),int(Middle_y)), 5, (255, 50, 50), thickness=3, lineType=8,shift=0)
             cv2.circle(img, (int(Thumb_x),int(Thumb_y)), 5, (255, 100, 100), thickness=3, lineType=8,shift=0)
+    else:
+        Index_x = 0
+        Index_y = 0
+        Middle_x = 0
+        Middle_y = 0
+        Thumb_x = 0
+        Thumb_y = 0
 
+    imgFile = cv2.imread('Nothing.jpg')
+
+    #detectPeace
+    try:
+        if(Index_x == 0):
+            print("do nothing")
+        else:
+            if(Index_y < Middle_y+60 and Index_y > Middle_y-60 and Middle_x-40<Thumb_x<Middle_x+40 and not Index_y-40<Thumb_y<Index_y+40):
+                print("Peace!")
+                imgFile = cv2.imread('Peace.jpg')
+            if(Index_y-40<Thumb_y<Index_y+40 and Middle_y-40<Thumb_y<Middle_y+40):
+                print("Fist")
+                imgFile = cv2.imread('Fist.jpg')
+    except:
+        print("couldn't detect!")
+        
+    
+    
+
+    cv2.namedWindow("Hands")
+    cv2.imshow("Hands", imgFile)
 
     cTime = time.time()
     fps = 1/(cTime-pTime)
